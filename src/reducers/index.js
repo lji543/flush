@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
-import users from './userReducer';
-import auth from './authReducer';
-import form from './formReducer';
+import locations from './mainReducer';
 
 export default combineReducers({
-  users,
-  auth,
-  form,
+  locations
 });

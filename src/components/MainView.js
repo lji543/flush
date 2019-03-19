@@ -1,33 +1,20 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-// import { fetchAllUsers } from '../actions/userActions';
-
-const style = {
-  gridContainer: {
-    minWidth: 350,
-  },
-  hr: {
-    margin: 20,
-  },
-  typeDiv: {
-    paddingLeft: 40,
-  },
-};
+import { fetchLocations } from '../actions/actions';
 
 class MainView extends React.Component {
-  constructor() {
-    super()
-  }
+  // constructor() {
+  //   super()
+  // }
 
   componentDidMount() {
-    //
+    this.props.fetchLocations();
   }
 
   render() {
-    // console.log(this.props)
     return (
-      <div>name list view </div>
+      <div>Main view </div>
     );
   }
 }
@@ -37,7 +24,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  // fetchAllUsers,
+  fetchLocations,
 };
 
 export default connect(
