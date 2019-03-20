@@ -3,18 +3,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchLocations } from '../actions/actions';
 
-class MainView extends React.Component {
-  // constructor() {
-  //   super()
-  // }
+// import GoogleMapReact from 'google-map-react';
 
-  componentDidMount() {
+import MapContainer from '../components/MapContainer';
+
+class MainView extends React.Component {
+
+  componentWillMount() {
     this.props.fetchLocations();
   }
 
   render() {
     return (
-      <div>Main view </div>
+      <div>
+        <MapContainer />
+      </div>
     );
   }
 }

@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase from '../staticConfig/firebase';
 
 export const FETCH_LOCATIONS = 'FETCH_LOCATIONS';
 

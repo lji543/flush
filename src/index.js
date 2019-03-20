@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import Navigation from './Navigation';
 import * as serviceWorker from './serviceWorker';
-import './App.css';
+import './styles/App.css';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

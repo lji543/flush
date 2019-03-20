@@ -3,9 +3,9 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 // import { logout } from '../actions/authActions';
 
-import ListView from './components/ListView';
-import MainView from './components/MainView';
-import Favorites from './components/Favorites';
+import ListView from './views/ListView';
+import MainView from './views/MainView';
+import Favorites from './views/Favorites';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
