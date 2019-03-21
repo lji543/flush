@@ -14,9 +14,10 @@ class MainView extends React.Component {
   }
 
   render() {
+    // console.log(this.props)
     return (
       <div>
-        <MapContainer />
+        <MapContainer/>
       </div>
     );
   }

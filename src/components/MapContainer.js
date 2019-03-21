@@ -5,7 +5,8 @@ import { fetchLocations } from '../actions/actions';
 
 import { googleMapsAPIKey } from '../staticConfig/constants';
 
-import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+// import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+import { GoogleApiWrapper } from 'google-maps-react';
 import Map from './Map';
 // import MapMarker from './MapMarker';
 
@@ -28,12 +29,12 @@ class MapContainer extends React.Component {
       showInfoWindow: false,
       activeMarker: {},
       selectedLoc: {},
-      markers: []
+      // markers: []
     }
   };
 
   handleMarkerClick = (id) => {
-    let loc = this.props.locations.filter(loc => {
+    let loc = this.props.data.locations.filter(loc => {
       return loc.id === id;
     })
     console.log(loc)
@@ -57,38 +58,19 @@ class MapContainer extends React.Component {
     console.log('you have moved the map! ',map)
   };
 
-  createMarkers = () => {
-    let markers = [];
-
-    this.props.locations.map(loc => {
-      markers.push({
-        id: loc.id,
-        lat: loc.lat,
-        lng: loc.lng,
-        name: loc.name
-      })
-    })
-    this.setState({markers:markers})
-  }
-
-  componentDidMount() {
-    // TODO get rid of timeout and do this right
-    let timeout;
-    if (timeout) {
-      clearTimeout(timeout);
-      timeout = null;
-    }
-    timeout = setTimeout(() => {
-      this.createMarkers()
-    }, 350);
-  }
-
   render() {
     if (!this.props.loaded) {
+      console.log(this.props)
       return <div>Loading...</div>
     }
 
-    console.log(this.state.showInfoWindow)
+    // console.log(this.state.showInfoWindow)
+    // <InfoWindow
+    //   visible = { this.state.showInfoWindow }>
+    // laura
+    // </InfoWindow>
+    //markers={this.state.markers}
+    // console.log(this.props)
     return (
       <div style={{ height: '50vh', width: '40%' }}>
         <Map
@@ -100,11 +82,8 @@ class MapContainer extends React.Component {
           }}
           onMove={this.handleMapMove}
           handleMarkerClick={this.handleMarkerClick}
-          markers={this.state.markers}>
-          <InfoWindow
-            visible = { this.state.showInfoWindow }>
-          laura
-          </InfoWindow>
+          >
+
         </Map>
       </div>
     )
@@ -118,6 +97,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   fetchLocations,
 };
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(MapContainer);
 
 export default connect(
   mapStateToProps,
