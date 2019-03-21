@@ -7,6 +7,7 @@ import { fetchMap } from '../actions/actions';
 import firebase from '../staticConfig/firebase';
 import { googleMapsAPIKey, locationSchema, neighborhoods } from '../staticConfig/constants';
 
+// import AutoComplete from '../components/utility/AutoComplete'
 import Button from '../components/utility/Button'
 import CheckBox from '../components/utility/CheckBox'
 import Input from '../components/utility/Input';
@@ -70,7 +71,7 @@ class AddLocation extends React.Component {
        if (a.types.includes('postal_code')) {
          zip = a.short_name;
        }
-       return;
+       return a;
      })
 
      let query = {

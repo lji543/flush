@@ -29,7 +29,7 @@ class MapContainer extends React.Component {
       showInfoWindow: false,
       activeMarker: {},
       selectedLoc: {},
-      // markers: []
+      iwContent: 'hello'
     }
   };
 
@@ -82,8 +82,8 @@ class MapContainer extends React.Component {
           }}
           onMove={this.handleMapMove}
           handleMarkerClick={this.handleMarkerClick}
+          iwContent={this.state.iwContent}
           >
-
         </Map>
       </div>
     )

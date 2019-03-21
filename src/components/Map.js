@@ -26,8 +26,6 @@ class Map extends React.Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       let { currentLoc, zoom } = this.state;
-      // this.props.fetchMap(google, currentLoc, zoom, node, markers);
-      // this.props.fetchMarkers(google, currentLoc, zoom, node);
 
       const center = new google.maps.LatLng(currentLoc.lat, currentLoc.lng);
       const mapConfig = Object.assign({}, {
@@ -65,7 +63,12 @@ class Map extends React.Component {
         title: m.name
       })
       marker.addListener('click', () => this.props.handleMarkerClick(m.id));
-      return marker;
+
+      let iw = new google.maps.InfoWindow({
+        content: 'hello'
+      });
+      iw.setContent(this.props.iwContent)
+      return marker, iw;
     });
   }
 
@@ -82,8 +85,8 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps, prevState)
     if (this.props.data !== prevProps.data) {
+      console.log(prevProps, prevState)
       this.createMarkers();
     }
   }
