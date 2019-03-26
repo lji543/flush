@@ -1,14 +1,11 @@
 import React from 'react';
 
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 // import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
 
 import Favorite from '@material-ui/icons/Favorite';
 
@@ -74,30 +71,32 @@ class ListView extends React.Component {
 
   createRow = (loc,idx) => {
     // let editTxt = loc.isEditing ? 'Save' : 'Edit';
-    if (loc.isEditing) {
+    if (!loc.isEditing) {
       return (
-        <div key={idx}>
+        <TableRow key={idx}>
           <Form handleEdit={this.handleEdit} />
-        </div>
+        </TableRow>
       )
     } else {
       return (
-        <div key={idx} style={{display:'flex'}}>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.name}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.address}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.code}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.neighborhood}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.note}</Typography>
-          <div style={{padding:'4px 12px'}}>
-            {loc.favorite &&
-              <Favorite/>
-            }
-          </div>
-          <div align="right">
-            <Button text={'Edit'} action={() => this.handleEdit(loc)}/>
-            <Button text={'Delete'} action={() => this.handleDelete(loc)} />
-          </div>
-        </div>
+        <TableRow key={idx}>
+          <TableCell style={{padding:'4px 12px'}} component="th" scope="loc">
+          {loc.name}
+          </TableCell>
+          <TableCell style={{padding:'4px 12px'}} align="right">{loc.address}</TableCell>
+          <TableCell style={{padding:'4px 12px'}} align="right">{loc.code}</TableCell>
+          <TableCell style={{padding:'4px 12px'}} align="right">{loc.neighborhood}</TableCell>
+          <TableCell style={{padding:'4px 12px'}} align="right">{loc.note}</TableCell>
+          <TableCell style={{padding:'4px 12px'}} align="right">
+          {loc.favorite &&
+            <Favorite/>
+          }
+          </TableCell>
+          <TableCell align="right">
+          <Button text={'Edit'} action={() => this.handleEdit(loc)}/>
+          <Button text={'Delete'} action={() => this.handleDelete(loc)} />
+          </TableCell>
+        </TableRow>
       )
     }
   }
@@ -135,13 +134,23 @@ class ListView extends React.Component {
   render() {
     // TODO add mapping, fix styling
     return (
-      <div>
-        <List>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell style={{padding:'4px 12px'}} align="right">Address</TableCell>
+            <TableCell style={{padding:'4px 12px'}} align="right">Code</TableCell>
+            <TableCell style={{padding:'4px 12px'}} align="right">Neighborhood</TableCell>
+            <TableCell style={{padding:'4px 12px'}} align="right">Notes</TableCell>
+            <TableCell style={{padding:'4px 12px'}} align="right">Favorite</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {this.state.locs.map((loc,idx) => (
             this.createRow(loc,idx)
           ))}
-        </List>
-      </div>
+        </TableBody>
+      </Table>
     );
   }
 }
@@ -158,3 +167,13 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListView);
+
+
+// <Typography variant="h5" gutterBottom>
+//   <span style={{padding:'4px 12px'}} align="right">Name</span>
+//   <span style={{padding:'4px 12px'}} align="right">Address</span>
+//   <span style={{padding:'4px 12px'}} align="right">Code</span>
+//   <span style={{padding:'4px 12px'}} align="right">Neighborhood</span>
+//   <span style={{padding:'4px 12px'}} align="right">Notes</span>
+//   <span style={{padding:'4px 12px'}} align="right">Favorite</span>
+// </Typography>

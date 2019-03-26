@@ -26,12 +26,12 @@ const Navigation = ({ history }) => {
       component: ListView
     },
     {
-      text: 'My Favorites',
+      text: 'Favorites',
       path: 'favorites',
       component: Favorites
     },
     {
-      text: 'Add a New Spot',
+      text: 'Add New Spot',
       path: 'addnew',
       component: AddLocation
     },

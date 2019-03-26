@@ -17,7 +17,7 @@ export const neighborhoods = [
   'Ballard',
   'Belltown',
   'Capitol Hill',
-  'Downtown',
+  'Downtown Seattle',
   'First Hill',
   'Fremont',
   'Georgetown',

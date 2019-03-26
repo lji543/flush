@@ -74,6 +74,7 @@ class Favorites extends React.Component {
                   </TableRow>
                 )
               }
+              return <TableRow />;
             })}
           </TableBody>
         </Table>

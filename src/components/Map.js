@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
-import { fetchMap } from '../actions/actions';
 
 class Map extends React.Component {
   constructor(props) {
@@ -68,7 +67,8 @@ class Map extends React.Component {
         content: 'hello'
       });
       iw.setContent(this.props.iwContent)
-      return marker, iw;
+      // return marker, iw;
+      return marker;
     });
   }
 
@@ -105,7 +105,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  fetchMap
+  //
 };
 
 export default connect(

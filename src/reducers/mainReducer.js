@@ -1,15 +1,18 @@
-import { FETCH_LOCATIONS, FETCH_MAP, FETCH_GOOGLE } from '../actions/actions';
+import { FETCH_LOCATIONS, DELETE_LOCATION } from '../actions/actions';
 
-export default (state = {}, { type, locations, map, googleInstance }) => {
+export default (state = {}, { type, locations }) => {
   switch (type) {
-    case FETCH_MAP:
-    // console.log(locations, map)
-      state.map = map;
-      return state;
-    case FETCH_GOOGLE:
-    // console.log(locations, map)
-      // TODO does this need to be added to state and not just returned?
-      state.googleInstance = googleInstance;
+    case DELETE_LOCATION:
+      // let test = {...state};
+      console.log(state.locations)
+
+      // if (currentCart[action.item] > 1) {
+      //   currentCart[action.item] -= 1;
+      // } else {
+      //   delete currentCart[action.item];
+      // }
+      // return currentCart;
+      state.locations = locations;
       return state;
     case FETCH_LOCATIONS:
     // console.log(locations, map)

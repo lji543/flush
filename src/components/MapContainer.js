@@ -72,7 +72,7 @@ class MapContainer extends React.Component {
     //markers={this.state.markers}
     // console.log(this.props)
     return (
-      <div style={{ height: '50vh', width: '40%' }}>
+      <div style={{ height: '70vh', width: '100%' }}>
         <Map
           google={this.props.google}
           zoom={this.state.zoom}
