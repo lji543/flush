@@ -3,7 +3,7 @@ export const locationSchema = {
   address: '',
   code: '',
   favorite: false,
-  // id: '',
+  id: '',
   lat: 0,
   lng: 0,
   loc: [],

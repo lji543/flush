@@ -143,18 +143,21 @@ class AddLocation extends React.Component {
   sendNewEntry = () => {
     let locCollection = firebase.firestore().collection('locations');
 
-    locCollection.doc().set(this.state.newLoc)
+    locCollection.add(this.state.newLoc)
       .then((docRef) => {
           console.log("Document successfully written!", docRef);
-          this.setState({
-            errorMessage: '',
-            message: "Thanks for sharing!!",
-            query: null,
-            newLoc: locationSchema,
-            addAnother:true,
-            autocomplete: null
-          })
-          document.getElementById('autocomplete').value = null;
+          locCollection.doc(docRef.id).update({id: docRef.id})
+            .then(() => {
+              this.setState({
+                errorMessage: '',
+                message: "Thanks for sharing!!",
+                query: null,
+                newLoc: locationSchema,
+                addAnother:true,
+                autocomplete: null
+              })
+              document.getElementById('autocomplete').value = null;
+            })
       })
       .catch(error => {
           console.error("Error writing document: ", error);
@@ -164,8 +167,7 @@ class AddLocation extends React.Component {
             query: this.state.query,
             newLoc: this.state.newLoc
           })
-      }
-    );
+      })
   }
 
   handleAddAnother = e => {
@@ -247,6 +249,7 @@ class AddLocation extends React.Component {
               name={'note'}
               value={this.state.newLoc.note}
               placeholder={'Details - floor, room, etc'}
+              rows={3}
               handleChange={this.handleInput}
             />
             <br />
@@ -254,7 +257,6 @@ class AddLocation extends React.Component {
               name={'neighborhood'}
               options={this.state.neighborhoods}
               value={this.state.newLoc.neighborhood}
-              rows={3}
               placeholder={'Select Neighborhood'}
               handleChange={this.handleInput}
             />

@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Favorite from '@material-ui/icons/Favorite';
 
 import Button from '../components/utility/Button'
-import Form from '../components/Form'
+import EditForm from '../components/EditForm'
 
 import { connect } from 'react-redux';
 import { fetchLocations, deleteLoc } from '../actions/actions';
@@ -25,11 +25,10 @@ class ListView extends React.Component {
 
     this.state = {
       locs: [],
-      isEditing:false
     }
   }
 
-  handleEdit = loc => {
+  showEditing = loc => {
     let locs = this.state.locs.map(cloc => {
       if ((cloc.lat === loc.lat) && (cloc.lng === loc.lng) && (cloc.name === loc.name)) {
         if (cloc.isEditing) {
@@ -43,6 +42,36 @@ class ListView extends React.Component {
       return cloc;
     });
     this.setState({locs:locs})
+  }
+
+  handleEdit = loc => {
+    console.log('editing ',loc)
+  }
+
+  handleSave = loc => {
+    let locRef = firebase.firestore().collection('locations').doc(loc.id);
+    loc.isEditing = false;
+    let updatedLocs = this.state.locs.map(l => {
+      if (l.id === loc.id) {
+        l = loc;
+      }
+      return l;
+    })
+
+    // TODO: use map, etc to only update what actually changed
+    return locRef.update(loc)
+      .then(() => {
+        console.log('successfully updated ')
+        this.setState({
+          locs: updatedLocs
+        });
+      })
+      .catch(error => {
+        console.log('error ', error)
+        loc.isEditing = true;
+        // TODO add error message
+      })
+
   }
 
   handleDelete = loc => {
@@ -73,11 +102,15 @@ class ListView extends React.Component {
   }
 
   createRow = (loc,idx) => {
-    // let editTxt = loc.isEditing ? 'Save' : 'Edit';
     if (loc.isEditing) {
       return (
         <div key={idx}>
-          <Form handleEdit={this.handleEdit} />
+          <EditForm
+            handleEdit={this.handleEdit}
+            handleSave={this.handleSave}
+            handleCancel={this.showEditing}
+            loc={loc}
+          />
         </div>
       )
     } else {
@@ -94,7 +127,7 @@ class ListView extends React.Component {
             }
           </div>
           <div align="right">
-            <Button text={'Edit'} action={() => this.handleEdit(loc)}/>
+            <Button text={'Edit'} action={() => this.showEditing(loc)}/>
             <Button text={'Delete'} action={() => this.handleDelete(loc)} />
           </div>
         </div>
@@ -107,7 +140,7 @@ class ListView extends React.Component {
   }
 
   componentDidMount() {
-
+    console.log('componentDidMount')
     let timeout;
     if (timeout) {
       clearTimeout(timeout);
@@ -134,6 +167,7 @@ class ListView extends React.Component {
 
   render() {
     // TODO add mapping, fix styling
+    // console.log('render')
     return (
       <div>
         <List>
