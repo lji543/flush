@@ -31,7 +31,11 @@ class EditForm extends React.Component {
   handleEdit = e => {
     let value = e.target.value;
     let name = e.target.name;
-    let errorMessage = ''
+    let errorMessage = '';
+
+    if (name === 'favorite') {
+      value = (value === 'true') ? false : true;
+    }
 
     this.setState( prevState => {
         return {
@@ -95,6 +99,13 @@ class EditForm extends React.Component {
             options={neighborhoods}
             value={this.state.updatedLoc.neighborhood}
             placeholder={loc.neighborhood}
+            handleChange={this.handleEdit}
+          />
+          <CheckBox
+            title={'Favorite'}
+            name={'favorite'}
+            options={this.state.updatedLoc.favorite}
+            value={this.state.updatedLoc.favorite}
             handleChange={this.handleEdit}
           />
           <Button text={'Save'} action={this.handleSave}/>

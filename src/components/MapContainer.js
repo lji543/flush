@@ -5,10 +5,8 @@ import { fetchLocations } from '../actions/actions';
 
 import { googleMapsAPIKey } from '../staticConfig/constants';
 
-// import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 import { GoogleApiWrapper } from 'google-maps-react';
 import Map from './Map';
-// import MapMarker from './MapMarker';
 
 const defaultData = {
   lat: 47.6062,
@@ -33,16 +31,10 @@ class MapContainer extends React.Component {
     }
   };
 
-  handleMarkerClick = (id) => {
-    let loc = this.props.data.locations.filter(loc => {
-      return loc.id === id;
-    })
-    console.log(loc)
-    this.setState({
-      selectedLoc: loc[0],
-      // activeMarker: marker,
-      showInfoWindow: true
-    });
+  handleMarkerClick = (map,marker,iw) => {
+    // console.log(marker,iw)
+    iw.open(map, marker);
+
   };
 
   onMarkerClose = props => {
@@ -64,13 +56,6 @@ class MapContainer extends React.Component {
       return <div>Loading...</div>
     }
 
-    // console.log(this.state.showInfoWindow)
-    // <InfoWindow
-    //   visible = { this.state.showInfoWindow }>
-    // laura
-    // </InfoWindow>
-    //markers={this.state.markers}
-    // console.log(this.props)
     return (
       <div style={{ height: '70vh', width: '100%' }}>
         <Map
@@ -83,8 +68,7 @@ class MapContainer extends React.Component {
           onMove={this.handleMapMove}
           handleMarkerClick={this.handleMarkerClick}
           iwContent={this.state.iwContent}
-          >
-        </Map>
+        />
       </div>
     )
   }
@@ -98,18 +82,9 @@ const mapDispatchToProps = {
   fetchLocations,
 };
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(MapContainer);
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(GoogleApiWrapper({
   apiKey: googleMapsAPIKey
 })(MapContainer));
-
-// export default GoogleApiWrapper({
-//   apiKey: googleMapsAPIKey
-// })(MapContainer)

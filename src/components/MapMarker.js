@@ -32,7 +32,7 @@ class MapMarker extends React.Component {
   }
 
   render() {
-    console.log('marker')
+    // console.log('marker')
     // return null;
     return (
       <div>hi</div>

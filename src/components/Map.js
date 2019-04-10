@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactDOMServer, { renderToString } from 'react-dom/server';
+
+import InfoWindow from './InfoWindow';
 
 import { connect } from 'react-redux';
 
@@ -61,13 +64,12 @@ class Map extends React.Component {
         map: this.map,
         title: m.name
       })
-      marker.addListener('click', () => this.props.handleMarkerClick(m.id));
 
       let iw = new google.maps.InfoWindow({
-        content: 'hello'
+        content: renderToString(<InfoWindow loc={m} />)
       });
-      iw.setContent(this.props.iwContent)
-      // return marker, iw;
+      marker.addListener('click', () => this.props.handleMarkerClick(this.map,marker,iw));
+
       return marker;
     });
   }
@@ -93,9 +95,7 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div style={{ height: '50vh', width: '100%' }} ref='map'>
-        Loading Map...
-      </div>
+      <div style={{ height: '50vh', width: '100%' }} ref='map'></div>
     )
   }
 };

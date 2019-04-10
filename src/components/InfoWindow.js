@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 
 class InfoWindow extends React.Component {
   // constructor(props) {
@@ -15,27 +14,15 @@ class InfoWindow extends React.Component {
     }
   }
 
-  renderMarker() {
-    console.log(this.props)
-    let {
-      map, google, position, mapCenter
-    } = this.props;
-
-    let pos = position || mapCenter;
-    position = new google.maps.LatLng(pos.lat, pos.lng);
-
-    const pref = {
-        map: map,
-        position: position
-      };
-    this.marker = new google.maps.Marker(pref);
-  }
-
   render() {
-    console.log('marker')
-    // return null;
+    const { loc } = this.props;
+    console.log(this.props)
     return (
-      <div>hi</div>
+      <div>
+        <div>{loc.name}</div>
+        <div>Code: {(loc.code) ? loc.code : 'None'}</div>
+        <div>{loc.notes}</div>
+      </div>
     )
   }
 };

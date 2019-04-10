@@ -49,13 +49,13 @@ class AddLocation extends React.Component {
   }
 
   handleCheckBox = e => {
-     const favorite = (e.target.value === 'true') ? true : false;
+    const favorite = (e.target.value === 'true') ? true : false;
 
-    this.setState( prevState => ({ newLoc:
-      {...prevState.newLoc, favorite: !favorite }
-    })
-    )
-   }
+     this.setState( prevState => ({ newLoc:
+        {...prevState.newLoc, favorite: !favorite }
+     })
+     )
+  }
 
   handlePlaceChanged(){
     const place = this.autocomplete.getPlace();
@@ -145,7 +145,7 @@ class AddLocation extends React.Component {
 
     locCollection.add(this.state.newLoc)
       .then((docRef) => {
-          console.log("Document successfully written!", docRef);
+          // console.log("Document successfully written!", docRef);
           locCollection.doc(docRef.id).update({id: docRef.id})
             .then(() => {
               this.setState({
