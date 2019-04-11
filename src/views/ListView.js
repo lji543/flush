@@ -1,19 +1,7 @@
 import React from 'react';
 
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-// import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
-
-import Favorite from '@material-ui/icons/Favorite';
-
-import Button from '../components/utility/Button'
-import EditForm from '../components/EditForm'
+import EditForm from '../components/EditForm';
+import LocationCard from '../components/LocationCard';
 
 import { connect } from 'react-redux';
 import { fetchLocations, deleteLoc } from '../actions/actions';
@@ -42,6 +30,11 @@ class ListView extends React.Component {
       return cloc;
     });
     this.setState({locs:locs})
+  }
+
+  handleRedirect = path => {
+    //this.props.history.push(`/${path}`)
+    this.props.history.push('/')
   }
 
   handleEdit = loc => {
@@ -115,22 +108,14 @@ class ListView extends React.Component {
       )
     } else {
       return (
-        <div key={idx} style={{display:'flex'}}>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.name}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.address}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.code}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.neighborhood}</Typography>
-          <Typography style={{padding:'4px 12px'}} variant="body1" gutterBottom>{loc.note}</Typography>
-          <div style={{padding:'4px 12px'}}>
-            {loc.favorite &&
-              <Favorite/>
-            }
-          </div>
-          <div align="right">
-            <Button text={'Edit'} action={() => this.showEditing(loc)}/>
-            <Button text={'Delete'} action={() => this.handleDelete(loc)} />
-          </div>
-        </div>
+        <LocationCard key={idx}
+          loc={loc}
+          buttons={[
+            {text:'Edit',action:this.showEditing},
+            {text:'Delete',action:this.handleDelete},
+            {text:'View on Map',action:this.handleRedirect}
+          ]}
+        />
       )
     }
   }
@@ -170,11 +155,9 @@ class ListView extends React.Component {
     // console.log('render')
     return (
       <div>
-        <List>
-          {this.state.locs.map((loc,idx) => (
-            this.createRow(loc,idx)
-          ))}
-        </List>
+        {this.state.locs.map((loc,idx) => (
+          this.createRow(loc,idx)
+        ))}
       </div>
     );
   }

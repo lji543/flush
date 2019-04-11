@@ -2,16 +2,17 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-// import { fetchLocations } from '../actions/actions';
-// import firebase from '../staticConfig/firebase';
-import { locationSchema, neighborhoods } from '../staticConfig/constants';
+import { neighborhoods } from '../staticConfig/constants';
 
-// import AutoComplete from '../components/utility/AutoComplete'
 import Button from '../components/utility/Button'
 import CheckBox from '../components/utility/CheckBox'
 import Input from '../components/utility/Input';
 import TextArea from '../components/utility/TextArea';
 import Select from '../components/utility/Select';
+
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 class EditForm extends React.Component {
   constructor(props) {
@@ -56,17 +57,12 @@ class EditForm extends React.Component {
     this.props.handleCancel(this.state.updatedLoc);
   }
 
-  componentDidMount() {
-
-  }
-
-  // <Button text={'Save'} action={this.handleFormSubmit} />&nbsp;&nbsp;
-  // <Button text={'Cancel'} action={this.handleClearForm}/>
   render() {
     const { loc, handleSave } = this.props
 
     return (
-      <div>
+      <Card>
+        <CardContent>
         <form onSubmit={handleSave} style={{display:'flex'}}>
           <Input type={'text'}
             name={'name'}
@@ -74,6 +70,14 @@ class EditForm extends React.Component {
             placeholder={loc.name}
             handleChange={this.handleEdit}
           />
+          <CheckBox
+            name={'favorite'}
+            options={this.state.updatedLoc.favorite}
+            value={this.state.updatedLoc.favorite}
+            handleChange={this.handleEdit}
+          />
+
+          <br />
           <Input type={'text'}
             name={'address'}
             value={this.state.updatedLoc.address}
@@ -81,6 +85,14 @@ class EditForm extends React.Component {
             title={'address'}
             handleChange={this.handleEdit}
           />
+          <Select title={'Neighborhood'}
+            name={'neighborhood'}
+            options={neighborhoods}
+            value={this.state.updatedLoc.neighborhood}
+            placeholder={loc.neighborhood}
+            handleChange={this.handleEdit}
+          />
+
           <Input type={'text'}
             name={'code'}
             value={this.state.updatedLoc.code}
@@ -94,24 +106,12 @@ class EditForm extends React.Component {
             label={'note'}
             handleChange={this.handleEdit}
           />
-          <Select title={'Neighborhood'}
-            name={'neighborhood'}
-            options={neighborhoods}
-            value={this.state.updatedLoc.neighborhood}
-            placeholder={loc.neighborhood}
-            handleChange={this.handleEdit}
-          />
-          <CheckBox
-            title={'Favorite'}
-            name={'favorite'}
-            options={this.state.updatedLoc.favorite}
-            value={this.state.updatedLoc.favorite}
-            handleChange={this.handleEdit}
-          />
+
           <Button text={'Save'} action={this.handleSave}/>
           <Button text={'Cancel'} action={this.handleCancel}/>
         </form>
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 }

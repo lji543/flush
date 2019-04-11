@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactDOMServer, { renderToString } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 
 import InfoWindow from './InfoWindow';
 
